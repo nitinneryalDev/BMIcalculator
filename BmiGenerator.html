@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+<style>
+  body {
+    width: 100vw;
+    height:100vh;
+    background-color: rgb(125, 150, 150);
+    display: grid;
+    place-content: center;
+    /* Vertically center content */
+  }
+
+  .container {
+    width: 500px;
+    max-height: 500px;
+    padding: 20px;
+    margin: 0 auto;
+    background-color: azure;
+    display:grid;
+    justify-content: center;
+    border-radius: 4px;
+    color:#fff;
+
+
+    /* Horizontally center container */
+  }
+
+  button {
+    background-color: green;
+    color: white;
+    border-radius: 4px;
+    padding: 5px;
+    border: none;
+  }
+</style>
+
+<body>
+  <div class="container">
+    <h1>BMI Gernerator</h1>
+    <form>
+      <p>
+        <label for="height">Height in CM :</label>
+        <input type="text" id="height" />
+      </p>
+      <p>
+        <label for="weight">Weight in KG :</label>
+        <input type="text" id="weight" />
+      </p>
+      <button>Calculate</button>
+      <div id="result"></div>
+      <div id="Weight-guide">
+        <h3>BMI Weight guide</h3>
+        <p>Underweight = Less than 18.6</p>
+        <p>Normal Range = 18.6 and 24.9</p>
+        <p>Overweight = Greater than 24.9</p>
+        <h3 id="conclusion" ></h3>
+
+      </div>
+    </form>
+  </div>
+</body>
+<script>
+  const form = document.querySelector("form");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const height = parseInt(document.querySelector("#height").value);
+    const weight = parseInt(document.querySelector("#weight").value);
+    const result = document.querySelector("#result");
+    const conclusion = document.querySelector("#conclusion");
+
+    if (height == "" || height < 0 || isNaN(height)) {
+      result.innetHTML = `Please Give a Valid Height  ${height}`;
+    }
+    if (weight == "" || height < 0 || isNaN(weight)) {
+      result.innerHTML = `Please Give a Valid Height  ${weight}`;
+    } else {
+      const bmi = (weight / ((height * height) / 10000)).toFixed(2)
+
+    if( bmi < 18.6 ) {
+      conclusion.innerHTML = ` you are Underweight`
+      conclusion.style.color="red";
+    } else if (  18.6 <= bmi   &&  24.9  >= bmi    ) {
+      conclusion.innerHTML = ` you are in a Normal Range`
+    } else {
+      conclusion.innerHTML = ` you are overweight`;
+      conclusion.style.color="red";
+
+    }
+
+
+      // show the result
+      result.innerHTML = `<span> ${bmi}</span>`
+      result.style.fontSize = "23px"
+      result.style.marginTop = "20px"
+      result.style.fontWeight = "500"
+
+    }
+  });
+
+</script>
+
+</html>
